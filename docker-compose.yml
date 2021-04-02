@@ -1,0 +1,46 @@
+version: "3"
+
+
+
+services:
+  postgresql:
+    image: postgres:11-alpine
+    hostname: $${POSTGRES_HOST}
+    container_name: limon-postgresql
+    environment:
+      - POSTGRES_HOST=limon-postgresql
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=limon_db
+      - POSTGRES_USER=developer
+      - POSTGRES_PASSWORD=local
+    ports:
+      - 8082:5432
+    volumes:
+      - pg-data-limon:/var/lib/postgresql/data
+
+
+  backend:
+    image: limon-backend
+    container_name: limon-backend
+    user: appuser
+    build: services/backend/
+    env_file:
+      - .env
+      - services/postgresql/.env
+    ports:
+      - 8081:8000
+    volumes:
+      - ./services/backend/service/:/app/
+    depends_on:
+      - redis
+      - postgresql
+    command: /bin/bash -c "
+        ./wait-for.sh $${POSTGRES_HOST}:$${POSTGRES_PORT} &&
+        python3 manage.py migrate &&
+        python3 manage.py collectstatic --no-input &&
+        python3 manage.py runserver 0.0.0.0:8081"
+
+
+
+volumes:
+  pg-data-limon:
