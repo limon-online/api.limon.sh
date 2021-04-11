@@ -1,4 +1,4 @@
-# Backend limon.sh
+# api.limon.sh
 
 The project follows the style described in [pep8](https://www.python.org/dev/peps/pep-0008/)
 
@@ -9,7 +9,6 @@ After build service is available on [http://0.0.0.0:8081](http://0.0.0.0:8081)
 ```bash
 $ docker-compose up --build
 ```
-__
 
 ### Migrations
 
@@ -28,7 +27,7 @@ $ docker-compose run backend pytest tests
 Test coverage:
 
 ```bash
-$ docker-compose run backend pytest tests --cov=apps
+$ docker-compose run backend pytest tests
 ```
 
 
@@ -37,5 +36,5 @@ $ docker-compose run backend pytest tests --cov=apps
 Run linter:
 
 ```bash
-$ docker-compose run backend pylint --rcfile=tests/.pylintrc apps
+$ docker-compose run backend flake8
 ```
