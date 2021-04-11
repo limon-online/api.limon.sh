@@ -1,13 +1,15 @@
 import uuid
 
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class BaseModel(models.Model):
     uuid = models.UUIDField(
-        primary_key=True,
+        _('unique object identifier'),
         default=uuid.uuid4,
         editable=False,
+        primary_key=True
     )
     created_at = models.DateTimeField(
         auto_now_add=True
@@ -16,8 +18,19 @@ class BaseModel(models.Model):
         auto_now=True
     )
 
-    def __str__(self):
-        return str(self.uuid)
+    class Meta:
+        abstract = True
+
+
+class PersonMixin(models.Model):
+    first_name = models.CharField(
+        _('first name'),
+        max_length=64
+    )
+    last_name = models.CharField(
+        _('last name'),
+        max_length=64
+    )
 
     class Meta:
         abstract = True

@@ -1,28 +1,45 @@
 from django.db import models
-from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import PermissionsMixin, UserManager
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.utils.translation import gettext_lazy as _
 
-from libs.models import BaseModel
+from libs.models import BaseModel, PersonMixin
 
 
-class User(BaseModel, AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(
-        max_length=64
-    )
-    last_name = models.CharField(
-        max_length=64
-    )
+class User(BaseModel, PersonMixin, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
+        _('email address'),
         unique=True,
-        max_length=254
+        max_length=128
+    )
+    is_active = models.BooleanField(
+        _('active status'),
+        default=False,
+        help_text=_(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        )
     )
     is_staff = models.BooleanField(
-        default=False
+        _('staff status'),
+        default=False,
+        help_text=_(
+            'Designates whether the user can log into this admin site.'
+        )
     )
 
-    class UserManager(BaseUserManager):
+    class BaseUserManager(UserManager):
         def _create_user(self, email, password, **kwargs):
+            """
+            Create and save a user with the given email and password.
+            """
+
+            if not email:
+                raise ValueError('The given email must be set')
+
+            if not password:
+                raise ValueError('The given password must be set')
+
             email = self.normalize_email(email)
             user = self.model(email=email, **kwargs)
             user.set_password(password)
@@ -30,23 +47,34 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
 
             return user
 
-        def create_user(self, email, password, **kwargs):
-            kwargs['is_superuser'] = False
+        def create_user(self, email=None, password=None, **kwargs):
+            kwargs.setdefault('is_staff', False)
+            kwargs.setdefault('is_superuser', False)
+
+            if kwargs.get('is_staff') is True:
+                raise ValueError("User must have is_staff=False.")
+
+            if kwargs.get('is_superuser') is True:
+                raise ValueError('User must have is_superuser=False.')
 
             return self._create_user(email, password, **kwargs)
 
-        def create_superuser(self, email, password, **kwargs):
-            kwargs['is_superuser'] = True
-            kwargs['is_staff'] = True
-            kwargs['is_active'] = True
-            kwargs.setdefault('first_name', '')
-            kwargs.setdefault('last_name', '')
+        def create_superuser(self, email=None, password=None, **kwargs):
+            kwargs.setdefault('is_staff', True)
+            kwargs.setdefault('is_superuser', True)
+
+            if kwargs.get('is_staff') is not True:
+                raise ValueError('Superuser must have is_staff=True.')
+
+            if kwargs.get('is_superuser') is not True:
+                raise ValueError('Superuser must have is_superuser=True.')
 
             return self._create_user(email, password, **kwargs)
 
-    objects = UserManager()
+    objects = BaseUserManager()
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
-        return self.email
+        return self.get_username()
