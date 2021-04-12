@@ -1,13 +1,9 @@
-sudo: false
-
-notifications:
-  email: false
-
-
 language: python
 
 python:
   - "3.8"
+
+sudo: false
 
 before_script:
   - source .env
