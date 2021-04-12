@@ -1,5 +1,6 @@
 import os
 import logging
+from glob import glob
 from datetime import timedelta
 
 from django.utils.translation import gettext_lazy as _
@@ -79,6 +80,22 @@ DATABASES = {
         'PORT': os.environ.get('POSTGRES_PORT')
     }
 }
+
+TEMPLATES = (
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': glob('apps/**/templates/', recursive=True),
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+)
 
 REST_FRAMEWORK = {
     'DATE_FORMAT': DATE_FORMAT,

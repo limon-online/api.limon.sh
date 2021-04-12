@@ -1,6 +1,6 @@
-from django.db import models
-from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import PermissionsMixin
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from libs.models import BaseModel, PersonMixin
@@ -28,7 +28,7 @@ class User(BaseModel, PersonMixin, AbstractBaseUser, PermissionsMixin):
         )
     )
 
-    class BaseUserManager(UserManager):
+    class UserManager(BaseUserManager):
         def _create_user(self, email, password, **kwargs):
             """
             Create and save a user with the given email and password.
@@ -71,10 +71,9 @@ class User(BaseModel, PersonMixin, AbstractBaseUser, PermissionsMixin):
 
             return self._create_user(email, password, **kwargs)
 
-    objects = BaseUserManager()
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return self.get_username()

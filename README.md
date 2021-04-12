@@ -4,7 +4,7 @@ The project follows the style described in [pep8](https://www.python.org/dev/pep
 
 ### Build
 
-After build service is available on [http://0.0.0.0:8081](http://0.0.0.0:8081)
+After build service is available on [http://0.0.0.0:8082](http://0.0.0.0:8082)
 
 ```bash
 $ docker-compose up --build

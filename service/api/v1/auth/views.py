@@ -4,7 +4,8 @@ from rest_framework import viewsets, status, response, decorators
 class AuthenticationViewSet(viewsets.ViewSet):
     @decorators.action(
         detail=False,
-        methods=['post']
+        methods=['post'],
+        url_path='sign-up'
     )
     def sign_up(self, *args, **kwargs):
         """
