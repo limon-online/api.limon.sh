@@ -10,7 +10,7 @@ before_script:
   - cd service
 
 script:
-  - pytest --cov=readonly_model
+  - pytest
 
 after_success:
   - codecov
