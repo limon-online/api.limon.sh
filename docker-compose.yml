@@ -32,7 +32,6 @@ services:
       - 8082:8082
     volumes:
       - ./service:/app
-      - ./requirements.txt:/app/requitements.txt
     depends_on:
       - redis
       - postgresql

@@ -1,0 +1,20 @@
+sudo: false
+
+notifications:
+  email: false
+
+
+language: python
+
+python:
+  - "3.10"
+
+before_script: 
+  - pip install -r requirements.txt
+  - cd service
+
+script:
+  - pytest --cov=readonly_model
+
+after_success:
+  - codecov
