@@ -35,10 +35,10 @@ class User(BaseModel, PersonMixin, AbstractBaseUser, PermissionsMixin):
             """
 
             if not email:
-                raise ValueError('The given email must be set')
+                raise ValueError(_('The given email must be set'))
 
             if not password:
-                raise ValueError('The given password must be set')
+                raise ValueError(_('The given password must be set'))
 
             email = self.normalize_email(email)
             user = self.model(email=email, **kwargs)
@@ -52,10 +52,10 @@ class User(BaseModel, PersonMixin, AbstractBaseUser, PermissionsMixin):
             kwargs.setdefault('is_superuser', False)
 
             if kwargs.get('is_staff') is True:
-                raise ValueError("User must have is_staff=False.")
+                raise ValueError(_("User must have is_staff=False."))
 
             if kwargs.get('is_superuser') is True:
-                raise ValueError('User must have is_superuser=False.')
+                raise ValueError(_('User must have is_superuser=False.'))
 
             return self._create_user(email, password, **kwargs)
 
@@ -64,10 +64,10 @@ class User(BaseModel, PersonMixin, AbstractBaseUser, PermissionsMixin):
             kwargs.setdefault('is_superuser', True)
 
             if kwargs.get('is_staff') is not True:
-                raise ValueError('Superuser must have is_staff=True.')
+                raise ValueError(_('Superuser must have is_staff=True.'))
 
             if kwargs.get('is_superuser') is not True:
-                raise ValueError('Superuser must have is_superuser=True.')
+                raise ValueError(_('Superuser must have is_superuser=True.'))
 
             return self._create_user(email, password, **kwargs)
 

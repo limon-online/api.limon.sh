@@ -126,6 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'uuid',
+    'UPDATE_LAST_LOGIN': True,
     'ROTATE_REFRESH_TOKENS': True,
     'ACCESS_TOKEN_LIFETIME': timedelta(
         seconds=int(os.environ['ACCESS_TOKEN_LIFETIME'])
@@ -142,8 +143,5 @@ SWAGGER_SETTINGS = {
             'name': 'Authorization',
             'in': 'header'
         }
-    },
-    'DEFAULT_PAGINATOR_INSPECTORS': [
-        'drf_yasg.inspectors.CoreAPICompatInspector',
-    ],
+    }
 }

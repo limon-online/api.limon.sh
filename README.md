@@ -38,5 +38,5 @@ $ docker-compose run backend pytest tests
 Run linter:
 
 ```bash
-$ docker-compose run backend flake8
+$ docker-compose run backend flake8 apps
 ```

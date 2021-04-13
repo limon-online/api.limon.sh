@@ -7,9 +7,15 @@ DocumentationView = get_schema_view(
     openapi.Info(
         title='Limon',
         default_version='v1',
+        description='Server performance monitoring project API.',
+        contact=openapi.Contact(
+            name='Andrey Doroschenko',
+            url='https://limon.sh/about',
+            email='dorosch.github.io@yandex.ru'
+        )
     ),
     public=True,
-    permission_classes=[
-        permissions.AllowAny
-    ]
+    permission_classes=(
+        permissions.AllowAny,
+    )
 )
