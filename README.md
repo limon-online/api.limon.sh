@@ -1,6 +1,7 @@
 # api.limon.sh
 
 [![Build Status](https://travis-ci.com/limon-sh/api.limon.sh.svg?branch=master)](https://travis-ci.com/limon-sh/api.limon.sh)
+[![codecov](https://codecov.io/gh/limon-sh/api.limon.sh/branch/master/graph/badge.svg?token=DW71KUIRYO)](https://codecov.io/gh/limon-sh/api.limon.sh)
 
 The project follows the style described in [pep8](https://www.python.org/dev/peps/pep-0008/)
 
