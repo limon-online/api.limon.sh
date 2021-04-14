@@ -2,19 +2,11 @@ language: python
 
 services:
   - postgresql
-
-python:
-  - "3.8"
-
-sudo: false
-
 before_script:
-  - source .env
   - env
+  - psql -c 'create database limon_db;' -U postgres
   - cd service
-
 script:
   - pytest
-
 after_success:
   - codecov
