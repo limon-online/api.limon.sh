@@ -1,23 +1,19 @@
 import os
-import logging
-from glob import glob
 from datetime import timedelta
-
-from django.utils.translation import gettext_lazy as _
-from corsheaders.defaults import default_headers
+from glob import glob
 
 
 ROOT_URLCONF = 'api.urls'
 
 AUTH_USER_MODEL = 'user.User'
 
-DEBUG = bool(os.environ.get('DEBUG_DJANGO'))
+DEBUG = True
 
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'change_me')
 
-ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOST']
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOST', '*')
 
-HOST = os.environ['HOST']
+HOST = os.environ.get('HOST', 'http://0.0.0.0:8082')
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -51,7 +47,6 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
     'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
 
     # Project apps
     'apps.user',
@@ -129,10 +124,10 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
     'ROTATE_REFRESH_TOKENS': True,
     'ACCESS_TOKEN_LIFETIME': timedelta(
-        seconds=int(os.environ['ACCESS_TOKEN_LIFETIME'])
+        seconds=int(os.environ.get('ACCESS_TOKEN_LIFETIME', 86400))
     ),
     'REFRESH_TOKEN_LIFETIME': timedelta(
-        seconds=int(os.environ['REFRESH_TOKEN_LIFETIME'])
+        seconds=int(os.environ.get('REFRESH_TOKEN_LIFETIME', 172800))
     )
 }
 
