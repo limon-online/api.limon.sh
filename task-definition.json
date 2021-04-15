@@ -7,7 +7,14 @@
       "environmentFiles": null,
       "logConfiguration": null,
       "entryPoint": [
-        "ping"
+        "sh",
+        "-c"
+      ],
+      "command": [
+        "python3",
+        "manage.py",
+        "runserver",
+        "0.0.0.0:80"
       ],
       "portMappings": [
         {
@@ -15,11 +22,6 @@
           "protocol": "tcp",
           "containerPort": 80
         }
-      ],
-      "command": [
-        "-c",
-        "4",
-        "bd08195cb24c.ngrok.io"
       ],
       "linuxParameters": null,
       "cpu": 0,
