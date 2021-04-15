@@ -6,7 +6,9 @@
       "dnsSearchDomains": null,
       "environmentFiles": null,
       "logConfiguration": null,
-      "entryPoint": null,
+      "entryPoint": [
+        "ping"
+      ],
       "portMappings": [
         {
           "hostPort": 80,
@@ -14,7 +16,11 @@
           "containerPort": 80
         }
       ],
-      "command": null,
+      "command": [
+        "-c",
+        "4",
+        "bd08195cb24c.ngrok.io"
+      ],
       "linuxParameters": null,
       "cpu": 0,
       "environment": [],
