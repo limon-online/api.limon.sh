@@ -6,7 +6,10 @@
       "dnsSearchDomains": null,
       "environmentFiles": null,
       "logConfiguration": null,
-      "entryPoint": null,
+      "entryPoint": [
+        "sh",
+        "-c"
+      ],
       "portMappings": [
         {
           "hostPort": 80,
@@ -14,7 +17,9 @@
           "containerPort": 80
         }
       ],
-      "command": null,
+      "command": [
+        "echo Hello from container",
+      ],
       "linuxParameters": null,
       "cpu": 0,
       "environment": [],
