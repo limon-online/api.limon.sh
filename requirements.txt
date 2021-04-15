@@ -30,4 +30,4 @@ codecov==2.1.11
 
 # Temporary fix for problem: https://github.com/SimpleJWT/django-rest-framework-simplejwt/issues/326
 PyJWT==1.7.1
-djangorestframework_simplejwt==4.4.0
+djangorestframework-simplejwt==4.6.0
