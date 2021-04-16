@@ -6,16 +6,8 @@
       "dnsSearchDomains": null,
       "environmentFiles": null,
       "logConfiguration": null,
-      "entryPoint": [
-        "sh",
-        "-c"
-      ],
-      "command": [
-        "python3",
-        "manage.py",
-        "runserver",
-        "0.0.0.0:80"
-      ],
+      "entryPoint": null,
+      "command": null,
       "portMappings": [
         {
           "hostPort": 80,
