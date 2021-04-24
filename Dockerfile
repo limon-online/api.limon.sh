@@ -4,6 +4,8 @@ FROM python:3.10-rc-buster
 ARG APP_DIR=/app
 ARG APP_USER=appuser
 
+ENV DJANGO_SETTINGS_MODULE settings.production
+
 RUN groupadd -r ${APP_USER} && \
     useradd --no-create-home -u 1000 -r -g ${APP_USER} ${APP_USER}
 
