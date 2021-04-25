@@ -7,7 +7,6 @@
       "environmentFiles": null,
       "logConfiguration": null,
       "entryPoint": null,
-      "command": null,
       "portMappings": [
         {
           "hostPort": 80,
@@ -15,6 +14,7 @@
           "containerPort": 80
         }
       ],
+      "command": null,
       "linuxParameters": null,
       "cpu": 0,
       "environment": [],
