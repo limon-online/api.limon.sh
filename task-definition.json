@@ -1,6 +1,6 @@
 {
   "ipcMode": null,
-  "executionRoleArn": null,
+  "executionRoleArn": "arn:aws:iam::644205971686:role/DevApiLimonSh",
   "containerDefinitions": [
     {
       "dnsSearchDomains": null,
@@ -26,19 +26,19 @@
       "secrets": [
         {
           "name": "POSTGRES_HOST",
-          "valueFrom": "arn:aws:ssm:us-east-2:644205971686:parameter/api.limon.sh/dev/POSTGRES_HOST"
+          "valueFrom": "POSTGRES_HOST"
         },
         {
           "name": "POSTGRES_DB",
-          "valueFrom": "arn:aws:ssm:us-east-2:644205971686:parameter/api.limon.sh/dev/POSTGRES_DB"
+          "valueFrom": "POSTGRES_DB"
         },
         {
           "name": "POSTGRES_PASSWORD",
-          "valueFrom": "arn:aws:ssm:us-east-2:644205971686:parameter/api.limon.sh/dev/POSTGRES_PASSWORD"
+          "valueFrom": "POSTGRES_PASSWORD"
         },
         {
           "name": "POSTGRES_USER",
-          "valueFrom": "arn:aws:ssm:us-east-2:644205971686:parameter/api.limon.sh/dev/POSTGRES_USER"
+          "valueFrom": "POSTGRES_USER"
         }
       ],
       "dockerSecurityOptions": null,
