@@ -10,5 +10,7 @@ router.register('', AuthenticationViewSet, basename='Authentication')
 
 urlpatterns = [
     *router.urls,
+
+    # TODO: Make token view as part of AuthenticationViewSet
     path('token/', TokenObtainPairView.as_view())
 ]

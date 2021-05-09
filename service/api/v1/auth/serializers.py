@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db import transaction
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
@@ -25,3 +26,7 @@ class SignUpSerializer(serializers.ModelSerializer):
             )
 
         return value
+
+    @transaction.atomic()
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)

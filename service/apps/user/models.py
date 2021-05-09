@@ -52,7 +52,7 @@ class User(BaseModel, PersonMixin, AbstractBaseUser, PermissionsMixin):
             kwargs.setdefault('is_superuser', False)
 
             if kwargs.get('is_staff') is True:
-                raise ValueError(_("User must have is_staff=False."))
+                raise ValueError(_('User must have is_staff=False.'))
 
             if kwargs.get('is_superuser') is True:
                 raise ValueError(_('User must have is_superuser=False.'))
