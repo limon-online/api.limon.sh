@@ -1,5 +1,7 @@
 from rest_framework import viewsets, status, response, decorators, permissions
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 
 from apps.user.models import User
 from .serializers import SignUpSerializer
@@ -14,7 +16,7 @@ class AuthenticationViewSet(viewsets.ViewSet):
             permissions.AllowAny
         ]
     )
-    def sign_up(self, *args, **kwargs):
+    def sign_up(self, request, *args, **kwargs):
         """
         Sign up
 
@@ -34,4 +36,31 @@ class AuthenticationViewSet(viewsets.ViewSet):
                 'access': str(refresh.access_token),
             },
             status=status.HTTP_201_CREATED
+        )
+
+    @decorators.action(
+        detail=False,
+        methods=['post'],
+        permission_classes=[
+            permissions.AllowAny
+        ]
+    )
+    def token(self, request, *args, **kwargs):
+        """
+        Token
+
+        Takes a set of user credentials and returns an access and
+        refresh JSON web token pair to prove the authentication
+        of those credentials.
+        """
+
+        serializer = TokenObtainPairSerializer(data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        return response.Response(
+            serializer.validated_data, status=status.HTTP_200_OK
         )

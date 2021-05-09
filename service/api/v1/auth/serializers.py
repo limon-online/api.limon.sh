@@ -15,6 +15,11 @@ class SignUpSerializer(serializers.ModelSerializer):
             'email',
             'password'
         )
+        extra_kwargs = {
+            'password': {
+                'write_only': True
+            }
+        }
 
     @staticmethod
     def validate_password(value):
